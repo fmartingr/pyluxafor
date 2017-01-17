@@ -84,7 +84,12 @@ class Luxafor:
         if device is None:
             raise Exception('Device was not found.')
 
-        device.set_configuration()
+        try:
+            device.set_configuration()
+        except usb.core.USBError:
+            # Prevent Resource busy errors
+            device.detach_kernel_driver(0)
+            device.set_configuration()
 
         self.device = device
 
