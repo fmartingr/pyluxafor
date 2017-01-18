@@ -1,0 +1,22 @@
+[MASTER]
+ignore = .git
+
+[FORMAT]
+max-line-length=100
+max-module-lines=2000
+
+[DESIGN]
+max-attributes=20
+max-locals=30
+max-branches=20
+max-nested-blocks=8
+max-returns=8
+max-args=8
+
+[MESSAGES CONTROL]
+disable =
+    locally-disabled, locally-enabled, redefined-outer-name,
+    invalid-name, protected-access, star-args, fixme, broad-except,
+    redefined-builtin, missing-docstring,
+    E1101, W0141, W0110,
+    R0903
