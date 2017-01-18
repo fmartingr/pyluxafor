@@ -4,7 +4,7 @@ import usb.core
 import usb.util
 
 
-class Leds:
+class Leds(object):
     """
     Helper class with static attributes to select Luxafor leds.
 
@@ -40,7 +40,7 @@ class Leds:
     LED6 = 0x06
 
 
-class Packet:
+class Packet(object):
     byte0 = 0
     byte1 = 0
     byte2 = None
@@ -60,7 +60,7 @@ class Packet:
         return list(pkt)
 
 
-class Luxafor:
+class Luxafor(object):
     VENDOR_ID = 0x04D8
     PRODUCT_ID = 0xF372
 
@@ -133,11 +133,10 @@ class Luxafor:
         pkt.byte7 = repeat
         self.device.write(self.DEVICE_ID, pkt.render())
 
-    def wave(self, red=255, green=255, blue=255, wave=1, led=Leds.ALL,
-             duration=2, repeat=1):
+    def wave(self, red=255, green=255, blue=255, wave=1, duration=2, repeat=1):
         pkt = Packet()
         pkt.byte0 = 4
-        pkt.byte1 = led
+        pkt.byte1 = wave
         pkt.byte2 = red
         pkt.byte3 = green
         pkt.byte4 = blue
