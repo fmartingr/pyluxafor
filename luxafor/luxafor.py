@@ -57,7 +57,7 @@ class Packet(object):
         pkt = filter(
             lambda x: x is not None,
             (self.get_byte(n) for n in range(8)))
-        return list(pkt)
+        return tuple(pkt)
 
 
 class Luxafor(object):
