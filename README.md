@@ -1,6 +1,8 @@
 pyluxafor
 =========
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b9a403e59244ce9a7d6a572dabb3392)](https://www.codacy.com/app/fmartingr/pyluxafor?utm_source=github.com&utm_medium=referral&utm_content=fmartingr/pyluxafor&utm_campaign=badger)
+
 Helper interface and CLI to interact with [luxafor](https://luxafor.com) products.
 
 
