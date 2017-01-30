@@ -8,25 +8,28 @@ class Leds(object):
     """
     Helper class with static attributes to select Luxafor leds.
 
-    - All: All the leds.
-    - Front: Front side of the flag.
-    - Back: Back side of the flag.
-    - Led#: Specific led number.
+    - **All**: All the leds.
+    - **Front**: Front side of the flag.
+    - **Back**: Back side of the flag.
+    - **Led#**: Specific led number.
 
-              +--------------------------+
-              |    |                     |
-              |6  3|                     |
-              |    |                     |
-    Front side|5  2|Back side            |
-              |    |                     |
-              |4  1|                     |
-              |    |                     |
-              |    +---------------------+
-              |    |
-              |    |
-              |    |
-              |    |
-              +----+
+
+    ::
+
+                +--------------------------+
+                |    |                     |
+                |6  3|                     |
+                |    |                     |
+      Front side|5  2|Back side            |
+                |    |                     |
+                |4  1|                     |
+                |    |                     |
+                |    +---------------------+
+                |    |
+                |    |
+                |    |
+                |    |
+                +----+
     """
     ALL = 0xFF
     BACK = 0x41
@@ -41,6 +44,11 @@ class Leds(object):
 
 
 class Packet(object):
+    """
+    Helper class to make it easy send the bytecode into the
+    luxafor flag via USB.
+    """
+
     byte0 = 0
     byte1 = 0
     byte2 = None
@@ -51,9 +59,11 @@ class Packet(object):
     byte7 = None
 
     def get_byte(self, byte_num):
+        """Returns the requested byte number"""
         return getattr(self, 'byte%d' % byte_num, None)
 
     def render(self):
+        """Returns the ordered byte-list to send via USB."""
         pkt = filter(
             lambda x: x is not None,
             (self.get_byte(n) for n in range(8)))
@@ -61,6 +71,9 @@ class Packet(object):
 
 
 class Luxafor(object):
+    """
+    Main object to interact with luxafor flags.
+    """
     VENDOR_ID = 0x04D8
     PRODUCT_ID = 0xF372
 
@@ -78,6 +91,9 @@ class Luxafor(object):
     }
 
     def __init__(self):
+        """
+        Finds the device to allow sending it information to.
+        """
         device = usb.core.find(idVendor=self.VENDOR_ID,
                                idProduct=self.PRODUCT_ID)
 
@@ -94,6 +110,12 @@ class Luxafor(object):
         self.device = device
 
     def set_basic_color(self, color):
+        """
+        Set's up a basic color defined by the luxafor spec.
+
+        Possible values are set in the :attr:`~luxafor.Luxafor.COLORS`:
+        attribute in this class.
+        """
         if color in self.COLORS:
             pkt = Packet()
             pkt.byte0 = 0
@@ -102,6 +124,11 @@ class Luxafor(object):
             self.device.write(self.DEVICE_ID, pkt.render())
 
     def set_color(self, red=255, green=255, blue=255, led=Leds.ALL):
+        """
+        Sets a fixed color defined by the user.
+
+        Using the `led` attribute.
+        """
         pkt = Packet()
         pkt.byte0 = 1
         pkt.byte1 = led
