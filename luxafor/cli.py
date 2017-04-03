@@ -83,10 +83,10 @@ def dec2hex(red, green, blue):
     return (red, green, blue)
 
 
-@cli.command()
+@cli.command('set')
 @click.option('--led', default='all')
 @click.argument('color')
-def set(led, color):
+def luxa_set(led, color):
     """Sets the flag with a fixed color."""
     color = convert_hex_to_dec_color(color)
 
