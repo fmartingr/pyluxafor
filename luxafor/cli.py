@@ -45,7 +45,8 @@ def get_matching_led(led: str) -> hex:
     if led_number:
         return led_number
 
-    logger.info('Led(s) %s not found, falling back to all' % led)
+    logger.info('Led(s) %(led)s not found, falling back to all',
+                extra={'led': led})
     return luxafor.Leds.ALL
 
 
