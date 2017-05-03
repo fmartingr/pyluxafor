@@ -12,7 +12,11 @@ logger = logging.getLogger()
 
 
 def get_luxafor():
-    return luxafor.Luxafor()
+    try:
+        return luxafor.Luxafor()
+    except BaseException:
+        click.secho('Luxafor flag not found.', fg='red')
+        sys.exit(1)
 
 
 def convert_hex_to_dec_color(hex_color: str) -> tuple:
