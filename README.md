@@ -5,12 +5,6 @@ Helper interface and CLI to interact with [luxafor](https://luxafor.com) product
 ## Install
 
 ```
-pip3 install pyluxafor
-```
-
-or
-
-```
 git clone git@github.com:fmartingr/pyluxafor.git
 cd pyluxafor
 python3 setup.py install
