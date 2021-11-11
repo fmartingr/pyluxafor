@@ -13,7 +13,7 @@ venv: .built/venv
 
 test: venv
 	( \
-		source venv/bin/activate ;\
+		. venv/bin/activate ;\
 		python3 setup.py install ;\
 		luxa off ;\
 		sleep 1 ;\
