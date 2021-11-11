@@ -10,6 +10,22 @@ cd pyluxafor
 python3 setup.py install
 ```
 
+## Ensure that USB device gets proper permissions
+
+Create UDEV rule in /etc/udev/rules.d/60-luxafor.rules with the following content
+```
+# add Luxafor LED flag
+SUBSYSTEMS=="usb", ATTR{idVendor}=="04d8", ATTR{idProduct}=="f372", MODE:="0666"
+```
+
+Reload udev configuration files
+
+```shell
+sudo udevadm control --reload && sudo udevadm trigger
+```
+
+Reinsert the Luxafor LED light.
+
 ## Using the CLI
 
 Pyluxafor provides the `luxa` command to interact with the USB led in the same way as the library
